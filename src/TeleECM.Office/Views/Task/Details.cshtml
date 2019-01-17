@@ -1,0 +1,60 @@
+﻿@model TeleECM.Office.Models.Task
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h2>@Html.DisplayFor(model => model.Title)</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.CreateDateTime) @Model.Author.ToString()</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Описание
+        </dt>
+        <dd>
+            @Html.Raw(Model.Text)
+        </dd>
+        <dt>
+            Состояние задачи
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status.Title)
+        </dd>
+        <dt>
+            Исполнители
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Users)
+        </dd>
+        <dt>
+            История
+        </dt>
+        <dd>
+            <table class="table-condensed">
+                <tbody>
+                    @foreach (var update in Model.Updates)
+                    {
+                    <tr>
+                        <td>
+                            @update.DateTime
+                        </td>
+                        <td>
+                            @update.User
+                        </td>
+                        <td>
+                            @update.Details
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Подтвердить", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Редактировать", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Назад</a>
+</div>
